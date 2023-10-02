@@ -46,16 +46,57 @@ DELETE FROM public.pedidos
 WHERE ID = 1
 
 --9. Crear una tabla llamada "Productos" con las columnas: id (entero, clave primaria), nombre (texto) y precio (decimal).
-
-
-
+CREATE TABLE IF NOT EXISTS Productos(
+ID INT	PRIMARY KEY,
+	NOMBRE VARCHAR(255) NOT NULL,
+	PRECIO NUMERIC
+) 
 
 --10. Insertar varios productos en la tabla "Productos" con diferentes valores.
+INSERT INTO public.Productos (ID, NOMBRE, PRECIO)
+VALUES (1,'PANTALON', 30),
+(2,'ZAPATOS', 80),
+(3,'CAMISA', 25),
+(4,'CAMISETA', 12)
+
 --11. Consultar todos los clientes de la tabla "Clientes".
+SELECT * FROM public.clientes
+
 --12. Consultar todos los pedidos de la tabla "Pedidos" junto con los nombres de los clientes correspondientes.
+--primero debí agregar a Juan nuevamente 
+INSERT INTO public.clientes (ID, name, email)
+VALUES (1, 'Juan', 'juan@gmail.com') 
+-- Luego ya pude hacer la consulta
+SELECT public.pedidos.*, public.clientes.name
+FROM public.pedidos
+LEFT JOIN public.clientes
+ON public.pedidos.cliente_id = public.clientes.id
+
 --13. Consultar los productos de la tabla "Productos" cuyo precio sea mayor a $50.
+SELECT public.Productos.nombre, public.Productos.precio
+FROM public.Productos 
+WHERE public.productos.precio > 50
+
 --14. Consultar los pedidos de la tabla "Pedidos" que tengan una cantidad mayor o igual a 5.
+--Primero agregué mas clinetes para poder asignarle compras a diferentes personas
+INSERT INTO public.clientes (ID, name, email)
+VALUES (3, 'Diego', 'diego@gmail.com'),
+(2,'Pedro','pedro@gmail.com'),
+(4,'suana','susana@gmail.com')
+--Ahora agregué compras nuevasa la tabla pedidos
+INSERT INTO public.pedidos (ID, CLIENTE_ID, PRODUCTO, CANTIDAD)
+VALUES (2,1,'ZAPATOS', 3),
+(3,2,'CAMISA', 6),
+(4,4,'PANTALON', 12)
+--Ahora recién realizo la peticion
+SELECT *
+FROM PUBLIC.PEDIDOS B
+WHERE B.CANTIDAD > 5
+
 --15. Consultar los clientes de la tabla "Clientes" cuyo nombre empiece con la letra "A".
+
+
+
 --16. Realizar una consulta que muestre el nombre del cliente y el total de pedidos realizados por cada cliente.
 --17. Realizar una consulta que muestre el nombre del producto y la cantidad total de pedidos de ese producto.
 --18. Agregar una columna llamada "fecha" a la tabla "Pedidos" de tipo fecha.
