@@ -94,11 +94,35 @@ FROM PUBLIC.PEDIDOS B
 WHERE B.CANTIDAD > 5
 
 --15. Consultar los clientes de la tabla "Clientes" cuyo nombre empiece con la letra "A".
-
-
+--Primero agregé un clinete con nombre que comienza con A
+INSERT INTO PUBLIC.CLIENTES (ID, name, email)
+VALUES (5, 'Ana', 'ana@gmail.com')
+-- Ahora hago la consulta
+SELECT *
+FROM public.clientes
+WHERE name LIKE 'A%'
 
 --16. Realizar una consulta que muestre el nombre del cliente y el total de pedidos realizados por cada cliente.
+SELECT A.id, A.name, B.cantidad
+FROM public.CLIENTES A
+LEFT JOIN public.PEDIDOS B
+ON A.ID = B.CLIENTE_ID
+
 --17. Realizar una consulta que muestre el nombre del producto y la cantidad total de pedidos de ese producto.
+SELECT B.producto, B.cantidad
+FROM public.PEDIDOS B
+
 --18. Agregar una columna llamada "fecha" a la tabla "Pedidos" de tipo fecha.
+ALTER TABLE public.pedidos
+ADD Fecha date;
+
 --19. Agregar una clave externa a la tabla "Pedidos" que haga referencia a la tabla "Productos" en la columna "producto".
+--Primero agrego la columna
+ALTER TABLE public.pedidos
+ADD productos_id SERIAL NOT NULL
+CONSTRAINT FK_productos_ID
+FOREIGN KEY (productos_id) REFERENCES productos(ID) --Me genera error--
+
+
+
 --20. Realizar una consulta que muestre los nombres de los clientes, los nombres de los productos y las cantidades de los pedidos donde coincida la clave externa.
