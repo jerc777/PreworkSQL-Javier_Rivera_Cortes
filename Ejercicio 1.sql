@@ -117,12 +117,22 @@ ALTER TABLE public.pedidos
 ADD Fecha date;
 
 --19. Agregar una clave externa a la tabla "Pedidos" que haga referencia a la tabla "Productos" en la columna "producto".
---Primero agrego la columna
+
+--primero dejé la columna nombre para que solo pueda recibir elementos no repetidos
+ALTER TABLE productos
+ADD CONSTRAINT UQ_nombre UNIQUE (nombre);
+
+--Luego agregé la constraint vinculando productos.nombre con pedidos.producto
+
 ALTER TABLE public.pedidos
-ADD productos_id SERIAL NOT NULL
-CONSTRAINT FK_productos_ID
-FOREIGN KEY (productos_id) REFERENCES productos(ID) --Me genera error--
-
-
+ADD CONSTRAINT FK_producto
+FOREIGN KEY (producto) 
+REFERENCES productos(nombre) 
 
 --20. Realizar una consulta que muestre los nombres de los clientes, los nombres de los productos y las cantidades de los pedidos donde coincida la clave externa.
+
+SELECT A.id, A.name, B.cliente_id, B.producto, B.cantidad
+FROM public.clientes A
+LEFT JOIN public.pedidos B
+ON A.id = B.cliente_id
+WHERE B.cliente_id IS NOT NULL
