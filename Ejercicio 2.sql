@@ -8,7 +8,7 @@ NOMBRE VARCHAR(255) NOT NULL,
 EDAD INT
 )
 --3. Inserta dos registros en la tabla "Usuarios".
-INSERT INTO public.usuarios (id,nombre, edad)
+INSERT INTO public.usuarios (id,nombre,edad)
 VALUES (1,'sergio', 30),(2,'pedro', 28),(3,'jose',15), (4,'roberto',56)
 
 --4. Actualiza la edad de un usuario en la tabla "Usuarios".
@@ -35,9 +35,37 @@ VALUES (1,'Madrid','España'),
 (3,'Ulan Bator','Mongolia')
 
 --3. Crea una foreign key en la tabla "Usuarios" que se relacione con la columna "id" de la tabla "Ciudades".
-
+--Primero cree la columna ciudades_id
+ALTER TABLE public.usuarios
+ADD ciudades_id NUMERIC;
+-- Ahora le dí la caracteristica de que no puede tener valores repetidos para que funcione com FK
+ALTER TABLE public.usuarios
+ADD CONSTRAINT OQ_ciudades_id
+UNIQUE (ciudades_id)
+-- llene los espacios con valores igual al id ( uno por uno)
+UPDATE public.usuarios
+SET ciudades_id = 3
+WHERE ID=3
+--Ahora para crear la fk 
+ALTER TABLE public.ciudades
+ADD CONSTRAINT FK_ciudades_id
+FOREIGN KEY (id) 
+REFERENCES usuarios(ciudades_id); 
 
 --4. Realiza una consulta que muestre los nombres de los usuarios junto con el nombre de su ciudad y país (utiliza un LEFT JOIN).
 
+SELECT A.id, A.nombre, B.name, B.pais
+FROM public.usuarios A
+LEFT JOIN public.ciudades B
+ON A.ciudades_id = B.id
 
 --5. Realiza una consulta que muestre solo los usuarios que tienen una ciudad asociada (utiliza un INNER JOIN).
+--Primero agregué un par de personas sin ciudades asociadas 
+INSERT INTO public.usuarios (id,nombre,edad)
+VALUES (5,'Ana', 29),(6,'Laura', 53)
+
+--Luego la consulta sería:
+SELECT * 
+FROM public.usuarios A
+INNER JOIN public.ciudades B
+on A.ciudades_id = B.id
