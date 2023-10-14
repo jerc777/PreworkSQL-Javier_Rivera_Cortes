@@ -1,9 +1,9 @@
 --Ejercicios 3
 --1. Crea una tabla llamada "Productos" con las columnas: "id" (entero, clave primaria), "nombre" (texto) y "precio" (numérico).
 CREATE TABLE IF NOT EXISTS productos(
-	id NUMERIC PRIMARY KEY,
+	id integer PRIMARY KEY,
 	nombre VARCHAR(255) NOT NULL,
-	precio INT NOT NULL	
+	precio numeric NOT NULL	
 )
 
 --2. Inserta al menos cinco registros en la tabla "Productos".
