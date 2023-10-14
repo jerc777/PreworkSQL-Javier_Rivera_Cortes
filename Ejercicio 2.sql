@@ -9,7 +9,7 @@ EDAD INT
 )
 --3. Inserta dos registros en la tabla "Usuarios".
 INSERT INTO public.usuarios (id,nombre,edad)
-VALUES (1,'sergio', 30),(2,'pedro', 28),(3,'jose',15), (4,'roberto',56)
+VALUES (1,'Sergio', 30),(2,'Pedro', 28),(3,'Jose',15), (4,'Roberto',56)
 
 --4. Actualiza la edad de un usuario en la tabla "Usuarios".
 UPDATE Usuarios
@@ -69,3 +69,7 @@ SELECT *
 FROM public.usuarios A
 INNER JOIN public.ciudades B
 on A.ciudades_id = B.id
+
+                   --como consulta. intento agregar un nuevo lugar en la tabla de ciudades, y no me deja
+									 INSERT INTO public.ciudades (id,name, pais)
+									 VALUES (4,'Paris','Francia')
