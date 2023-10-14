@@ -51,7 +51,7 @@ ON A.ciudad_id = B.id
 order by id asc
 
 --5. Realiza una consulta que muestre solo los usuarios que tienen una ciudad asociada (utiliza un INNER JOIN).
---Primero agregué un par de personas sin ciudades asociadas 
+--Primero agregué un par de personas con ciudades asociadas 
 INSERT INTO public.usuarios (nombre,edad,ciudad_id)
 VALUES ('Ana', 29,2),('Laura', 53,3)
 
