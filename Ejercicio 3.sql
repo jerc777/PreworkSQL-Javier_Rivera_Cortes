@@ -25,7 +25,32 @@ DELETE FROM public.productos
 where id=5
 
 --5. Realiza una consulta que muestre los nombres de los usuarios junto con los nombres de los productos que han comprado (utiliza un INNER JOIN con la tabla "Productos").
+
 -- Con esta sentencia agrego la columna Usuarios_id para usarla de FK
 ALTER TABLE public.productos
 ADD usuarios_id int;
+
+-- con esta sentencia actualizo el indice de usuario_id de los productos que ya están
+
+UPDATE productos
+SET usuarios_id = 1
+WHERE id = 1;
+
+-- y con esta creo  nuevas
+
+INSERT INTO public.productos(id,nombre, precio, usuarios_id)
+VALUES (7,'patatas', 0.9, 2);
+(8,'Huevos', 2.8, 3),
+(9,'Aceite', 8, 3),
+(10,'Cebolla', 1.6, 3),
+(11,'Ajo', 0.8, 4),
+(12,'Cebolla', 1.6, 4);
+
+--Ahora hago la consulta
+
+SELECT * 
+FROM public.usuarios A
+INNER JOIN public.productos B
+on A.id = B.usuarios_id
+ORDER BY A.id ASC
 
