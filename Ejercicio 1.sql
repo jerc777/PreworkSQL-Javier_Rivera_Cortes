@@ -47,7 +47,7 @@ WHERE ID = 1
 
 --9. Crear una tabla llamada "Productos" con las columnas: id (entero, clave primaria), nombre (texto) y precio (decimal).
 CREATE TABLE IF NOT EXISTS Productos(
-ID INT	PRIMARY KEY,
+  ID INT	PRIMARY KEY,
 	NOMBRE VARCHAR(255) NOT NULL,
 	PRECIO NUMERIC
 ) 
