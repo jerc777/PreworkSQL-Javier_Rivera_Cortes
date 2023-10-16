@@ -18,7 +18,7 @@ VALUES (1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(2,4),(3,3),(3,4),(3,6),(5,1),(5,2);
 
 --3. Realiza una consulta que muestre los nombres de los usuarios y los nombres de los productos que han comprado, incluidos aquellos que no han realizado ningún pedido (utiliza LEFT JOIN y COALESCE).
 
-SELECT A.name, B.nombre
+SELECT A.name, COALESCE(B.nombre,'No ha comprado nada')
 FROM public.clientes A
 LEFT JOIN public.pedidos C 
 ON A.id = C.id_cliente
@@ -27,7 +27,12 @@ ON B.id = C.id_producto
 
 --4. Realiza una consulta que muestre los nombres de los usuarios que han realizado un pedido, pero también los que no han realizado ningún pedido (utiliza LEFT JOIN).
 
-
+SELECT A.name, B.nombre
+FROM public.clientes A
+LEFT JOIN public.pedidos C 
+ON A.id = C.id_cliente
+LEFT JOIN public.productos B
+ON B.id = C.id_producto
 
 --5. Agrega una nueva columna llamada "cantidad" a la tabla "Pedidos" y actualiza los registros existentes con un valor (utiliza ALTER TABLE y UPDATE)
 --Cree la columna
